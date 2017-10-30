@@ -1,12 +1,13 @@
+import java.util.EmptyStackException;
 import java.util.function.Function;
 
-public class ArrayList<Type> implements List<Type> {
+public class ArrayStack<Type> implements Stack<Type> {
     private Function<Integer, Type[]> supplier;
     private Type[] array;
     private int length;
     private int sizeToAdd;
 
-    public ArrayList(int size, int sizeToAdd, Function<Integer, Type[]> supplier) {
+    public ArrayStack(int size, int sizeToAdd, Function<Integer, Type[]> supplier) {
         this.supplier = supplier;
         array = supplier.apply(size);
         length = 0;
@@ -14,7 +15,7 @@ public class ArrayList<Type> implements List<Type> {
     }
 
     @Override
-    public void add(Type a) {
+    public void push(Type a) {
         if(length == array.length) {
             addSize(sizeToAdd);
         }
@@ -31,28 +32,13 @@ public class ArrayList<Type> implements List<Type> {
     }
 
     @Override
-    public void remove(int index) {
-        if(index >= length) {
-            throw new IndexOutOfBoundsException(index + " >= " + length);
+    public Type pop() {
+        if(length <= 0) {
+            throw new EmptyStackException();
         }
-
-        for(int i = index; i < length - 1; ++i) {
-            array[i] = array[i + 1];
-        }
+        Type temp = array[length - 1];
         --length;
-    }
-
-    @Override
-    public Type get(int i) {
-        if(i >= length) {
-            throw new IndexOutOfBoundsException(i + " >= " + length);
-        }
-        return array[i];
-    }
-
-    @Override
-    public int size() {
-        return length;
+        return temp;
     }
 
     @Override
