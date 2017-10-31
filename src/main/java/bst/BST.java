@@ -2,6 +2,8 @@ package bst;
 
 public class BST {
     private TreeNode<Integer> root;
+    private int deep = 0;
+
 
     public void add(int a) {
         TreeNode<Integer> node = new TreeNode<>(a);
@@ -47,5 +49,26 @@ public class BST {
         }
 
         System.out.println("Not found: " + number);
+    }
+
+    public void normalise(){
+        int leftDepth = depth(root.getLeft());
+        int rightDepth = depth(root.getRight());
+
+        if (leftDepth > rightDepth + 1) {
+            TreeNode<Integer> temp = root;
+        }
+
+    }
+
+    public static int depth(TreeNode<Integer> node){
+        if (node == null){
+            return 0;
+        }
+
+        int leftDepth = depth(node.getLeft());
+        int rightDepth = depth(node.getRight());
+
+        return 1 + Math.max(leftDepth, rightDepth);
     }
 }
