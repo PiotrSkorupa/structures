@@ -22,6 +22,11 @@ public class LinkedStack<Type> implements Stack<Type> {
     }
 
     @Override
+    public boolean isEmpty() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         if(top == null) {
             return "[]";
